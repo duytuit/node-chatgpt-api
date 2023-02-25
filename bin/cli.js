@@ -3,13 +3,15 @@ import fs from 'fs';
 import { pathToFileURL } from 'url';
 import { KeyvFile } from 'keyv-file';
 import ChatGPTClient from '../src/ChatGPTClient.js';
+import ChatSocketClient from '../src/SocketClient.js';
 import boxen from 'boxen';
 import ora from 'ora';
 import clipboard from 'clipboardy';
 import inquirer from 'inquirer';
 import inquirerAutocompletePrompt from 'inquirer-autocomplete-prompt';
 import BingAIClient from '../src/BingAIClient.js';
-
+import io from 'socket.io-client';
+const socket_url = "ws://localhost:3000/?userId=76209714-53a8-43c7-8c71-d3216d034fec";
 const arg = process.argv.find((arg) => arg.startsWith('--settings'));
 let path;
 if (arg) {
@@ -79,6 +81,8 @@ inquirer.registerPrompt('autocomplete', inquirerAutocompletePrompt);
 const clientToUse = settings.cliOptions?.clientToUse || settings.clientToUse || 'chatgpt';
 
 let client;
+let clientSocket = new ChatSocketClient();
+ clientSocket.createWebSocketConnection();
 switch (clientToUse) {
     case 'bing':
         client = new BingAIClient({

@@ -55,10 +55,9 @@ export default class SocketClient {
         });
     }
 }
+let conversationData = {};
 async function handleChatAi(mes) {
     let obj = mes.data;
-   
-    let conversationData = {};
     //console.log(obj);
     let client = new ChatGPTClient(
         settings.openaiApiKey,

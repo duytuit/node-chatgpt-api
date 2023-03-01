@@ -73,6 +73,7 @@ async function handleChatAi(mes) {
         },
     });
     let responseText = response.response;
+    console.log(responseText);
     socket.emit('groupMessage', {
         "content": responseText,
         "groupId": obj.groupId,

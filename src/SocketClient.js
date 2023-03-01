@@ -81,4 +81,10 @@ async function handleChatAi(mes) {
         "userId": "6f0d1003-88f2-4394-886a-f6738edcfe07",
         "bot": true
     });
+    conversationData = {
+        conversationId: response.conversationId,
+        parentMessageId: response.messageId,
+    };
+
+    await client.conversationsCache.set('lastConversation', conversationData);
 }

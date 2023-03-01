@@ -2,8 +2,11 @@ import io from 'socket.io-client';
 import fs from 'fs';
 import { pathToFileURL } from 'url';
 import ChatGPTClient from '../src/ChatGPTClient.js';
-
 const socket_url = "ws://localhost:3000";
+const socket = io(socket_url);
+socket.on('connect', function () {
+    console.log('connect thành công');
+});
 const arg = process.argv.find((arg) => arg.startsWith('--settings'));
 let path;
 if (arg) {
@@ -40,10 +43,10 @@ export default class SocketClient {
     constructor(
     ) {}
     async socketConnection() {
-        const socket = io(socket_url);
-        socket.on('connect', function () {
-            console.log('connect thành công');
-        });
+        // const socket = io(socket_url);
+        // socket.on('connect', function () {
+        //     console.log('connect thành công');
+        // });
         socket.on('broadcastMessage', function (mes) {
             let obj = mes.data;
             if (obj && obj.bot != true) {
@@ -54,10 +57,7 @@ export default class SocketClient {
 }
 async function handleChatAi(mes) {
     let obj = mes.data;
-    const socket = io(socket_url);
-    socket.on('connect', function () {
-        console.log('connect thành công');
-    });
+   
     let conversationData = {};
     //console.log(obj);
     let client = new ChatGPTClient(

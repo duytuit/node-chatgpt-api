@@ -42,6 +42,7 @@
     "@fastify/cors": "^8.2.0",
     "@waylaidwanderer/fastify-sse-v2": "^3.1.0",
     "@waylaidwanderer/fetch-event-source": "^3.0.1",
+    "axios": "^1.3.4",
     "boxen": "^7.0.1",
     "clipboardy": "^3.0.0",
     "dotenv": "^16.0.3",

@@ -58,32 +58,33 @@ export default class SocketClient {
 let conversationData = {};
 async function handleChatAi(mes) {
     let obj = mes.data;
-    //console.log(obj);
-    let client = new ChatGPTClient(
-        settings.openaiApiKey,
-        settings.chatGptClient,
-        settings.cacheOptions,
-    );
-    let reply;
-    const response = await client.sendMessage(obj.content, {
-        ...conversationData,
-        onProgress: (token) => {
-            reply += token;
-        },
-    });
-    let responseText = response.response;
-    console.log(responseText);
-    socket.emit('groupMessage', {
-        "content": responseText,
-        "groupId": obj.groupId,
-        "messageType": "text",
-        "userId": "6f0d1003-88f2-4394-886a-f6738edcfe07",
-        "bot": true
-    });
-    conversationData = {
-        conversationId: response.conversationId,
-        parentMessageId: response.messageId,
-    };
-
-    await client.conversationsCache.set('lastConversation', conversationData);
+    if(obj.content){
+        //console.log(obj);
+        let client = new ChatGPTClient(
+            settings.openaiApiKey,
+            settings.chatGptClient,
+            settings.cacheOptions,
+        );
+        let reply;
+        const response = await client.sendMessage(obj.content, {
+            ...conversationData,
+            onProgress: (token) => {
+                reply += token;
+            },
+        });
+        let responseText = response.response;
+        console.log(responseText);
+        socket.emit('groupMessage', {
+            "content": responseText,
+            "groupId": obj.groupId,
+            "messageType": "text",
+            "userId": "6f0d1003-88f2-4394-886a-f6738edcfe07",
+            "bot": true
+        });
+        conversationData = {
+            conversationId: response.conversationId,
+            parentMessageId: response.messageId,
+        };
+        await client.conversationsCache.set('lastConversation', conversationData);
+    }
 }

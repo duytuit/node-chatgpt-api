@@ -7,7 +7,7 @@ export default {
     // However, `cacheOptions.store` will override this if set
     storageFilePath: process.env.STORAGE_FILE_PATH || './cache.json',
     // Your OpenAI API key (for `ChatGPTClient`)
-    openaiApiKey: process.env.OPENAI_API_KEY || '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',
+    openaiApiKey: process.env.OPENAI_API_KEY || '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',
     chatGptClient: {
         // (Optional) Support for a reverse proxy for the completions endpoint (private API server).
         // Warning: This will expose your `openaiApiKey` to a third party. Consider the risks before using this.

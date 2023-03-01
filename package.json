@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bin/server.js",
     "server": "node bin/server.js",
-    "cli": "node bin/cli.js"
+    "cli": "node bin/cli.js",
+    "pm2": "pm2 start --name node_chatgpt node bin/cli.js -i max"
   },
   "author": "waylaidwanderer",
   "license": "MIT",
